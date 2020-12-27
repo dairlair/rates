@@ -1,0 +1,47 @@
+version:  '3.8'
+
+services:
+  mariadb:
+    image: mariadb:10.5
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: rates
+      MYSQL_USER: rates
+      MYSQL_DATABASE: ratesdb
+    ports:
+      - '13306:3306'
+
+  nginx:
+    image: nginx:1.19.0-alpine
+    restart: on-failure
+    volumes:
+      - './:/usr/src/app'
+      - './docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro'
+    ports:
+      - '8000:80'
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - './:/usr/src/app'
+    restart: on-failure
+    env_file:
+      - .env
+    user: 1000:1000
+    depends_on:
+      - mariadb
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    volumes:
+      - './:/usr/src/app'
+    restart: on-failure
+    ports:
+      - '4200:80'
