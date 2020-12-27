@@ -36,7 +36,7 @@ class Rate
     private $source;
 
     /**
-     * @ORM\Column(type="decimal", nullable=false)
+     * @ORM\Column(type="float", nullable=false)
      * @var float
      */
     private $rate;
