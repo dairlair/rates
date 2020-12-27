@@ -19,23 +19,12 @@ export class RatesComponent implements OnInit {
 
   retrieveRates(): void {
     this.ratesService.getAll()
-      .subscribe(
-        data => {
-          this.rates = data;
-        },
-        error => {
-          console.log(error);
-        });
+      .subscribe(data => {this.rates = data},error => {console.log(error)});
   }
 
   deleteRate(id): void {
-    this.ratesService.delete(id).subscribe(
-      () => {
-        this.retrieveRates();
-      },
-      error => {
-        console.log(error);
-      }
+    this.ratesService.delete(id)
+      .subscribe(() => {this.retrieveRates()},error => {console.log(error)}
     );
   }
 }
