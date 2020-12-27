@@ -1,3 +1,22 @@
+## Local run
+
+```shell script
+# may take some time
+docker-compose build 
+docker-compose up
+```
+
+In another terminal run these commands:
+
+```shell script
+# Apply migrations
+docker-compose run php php bin/console d:m:m
+# Pull rates from sources
+docker-compose run php php bin/console rates:pull
+```
+
+Now open http://localhost:4200/converter URL and explore the app!
+
 ## Pull rates
 
 Just run the following command:

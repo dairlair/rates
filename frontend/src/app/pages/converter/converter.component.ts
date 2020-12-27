@@ -55,7 +55,6 @@ export class ConverterComponent implements OnInit {
   getCurrenciesWithExclusion(excludedCurrencyId: number): Currency[]
   {
     let currencies: Currency[] = [];
-    console.log('Exclude: ', excludedCurrencyId);
     for (let currencyId in this.currencies) {
       if (String(currencyId) !== String(excludedCurrencyId)) {
         currencies.push(this.currencies[currencyId]);
