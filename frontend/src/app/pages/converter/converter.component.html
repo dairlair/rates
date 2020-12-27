@@ -1,0 +1,17 @@
+<p>Converter</p>
+
+<input nz-input placeholder="Amount" [(ngModel)]="amount" (ngModelChange)="amountChanged($event)" />
+
+<hr>
+
+<nz-select nzShowSearch nzAllowClear nzPlaceHolder="Base currency"  ngModel="baseCurrencyId" (ngModelChange)="baseCurrencyChanged($event)">
+  <nz-option nzValue="{{ currency.id }}" nzLabel="{{ currency.code }}" *ngFor="let currency of baseCurrencies"></nz-option>
+</nz-select>
+
+<nz-select nzShowSearch nzAllowClear nzPlaceHolder="Quote currency" ngModel="quoteCurrencyId" (ngModelChange)="quoteCurrencyChanged($event)">
+  <nz-option nzValue="{{ currency.id }}" nzLabel="{{ currency.code }}" *ngFor="let currency of quoteCurrencies"></nz-option>
+</nz-select>
+
+<hr>
+<div innerHTML="{{conversionMessage}}"></div>
+<h1 *ngIf="convertedAmount">You will get: {{ convertedAmount }} {{ this.currencies[this.quoteCurrencyId].code}}</h1>

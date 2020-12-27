@@ -1,0 +1,24 @@
+<p>Latest rates</p>
+
+<nz-table #basicTable [nzData]="rates">
+  <thead>
+  <tr>
+    <th>Rate ID</th>
+    <th>Base currency</th>
+    <th>Quote currency</th>
+    <th>Rate</th>
+    <th>Source</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let rate of basicTable.data">
+    <td>{{ rate.id }}</td>
+    <td>{{ rate.base_currency.code }}</td>
+    <td>{{ rate.quote_currency.code }}</td>
+    <td>{{ rate.rate }}</td>
+    <td>{{ rate.source.name }}</td>
+    <td><a nz-button nzType="text" nzDanger (click)="deleteRate(rate.id)">Delete</a></td>
+  </tr>
+  </tbody>
+</nz-table>
