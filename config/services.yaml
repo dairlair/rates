@@ -29,3 +29,35 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # Note! You can configure the same rates source with other id, when the their API is the same as in ECB website.
+    App\RatesSources\Providers\Ecb\EcbRatesSource:
+        class: App\RatesSources\Providers\Ecb\EcbRatesSource
+        arguments:
+            - 'www.ecb.europa.eu'
+            - 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'
+            - 'EUR'
+
+    # Optionally, when the Bank of England buy ECB software and will expose the same api for GBP
+    # We can configure the new source like that (if the API has not changed):
+#    App\RatesSources\Providers\UK\BankOfEnglandRatesSource:
+#        class: App\RatesSources\Providers\Ecb\EcbRatesSource
+#        arguments:
+#            - 'www.bankofengland.co.uk/'
+#            - 'https://www.bankofengland.co.uk//stats/eurofxref/eurofxref-daily.xml'
+#            - 'GBP'
+
+    App\RatesSources\Providers\Coindesk\CoindeskRatesSource:
+        class: App\RatesSources\Providers\Coindesk\CoindeskRatesSource
+        arguments:
+            - 'api.coindesk.com'
+            - 'https://api.coindesk.com/v1/bpi/historical/close.json'
+
+    App\Service\RatesPullingService:
+        class: App\Service\RatesPullingService
+        arguments:
+            - '@App\Repository\CurrencyRepository'
+            - '@App\Repository\RateRepository'
+            - '@App\Repository\SourceRepository'
+            - '@App\RatesSources\Providers\Ecb\EcbRatesSource'
+            - '@App\RatesSources\Providers\Coindesk\CoindeskRatesSource'

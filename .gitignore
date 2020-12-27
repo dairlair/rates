@@ -14,3 +14,5 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+# It is reccomended to add IDE's folders to global gitignore, no to project-level.
+.idea
