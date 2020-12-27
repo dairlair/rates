@@ -29,10 +29,7 @@ class RateRepository extends ServiceEntityRepository
         }
 
         $rate->setRate($rateValue);
-        $this->_em->persist($rate);
-        $this->_em->flush();
-
-        return $rate;
+        return $this->save($rate);
     }
 
     private function findOneByCurrenciesAndSource(Currency $base, Currency $quote, Source $source): ?Rate
@@ -55,5 +52,18 @@ class RateRepository extends ServiceEntityRepository
         $rate->setQuoteCurrency($quote);
         $rate->setSource($source);
         return $rate;
+    }
+
+    public function save(Rate $rate): Rate
+    {
+        $this->_em->persist($rate);
+        $this->_em->flush();
+        return $rate;
+    }
+
+    public function delete(Rate $rate): void
+    {
+        $this->_em->remove($rate);
+        $this->_em->flush();
     }
 }
