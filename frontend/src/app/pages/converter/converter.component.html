@@ -13,5 +13,5 @@
 </nz-select>
 
 <hr>
-<div>{{ conversionMessage }}</div>
+<div innerHTML="{{conversionMessage}}"></div>
 <h1 *ngIf="convertedAmount">You will get: {{ convertedAmount }} {{ this.currencies[this.quoteCurrencyId].code}}</h1>

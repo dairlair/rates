@@ -87,6 +87,9 @@ export class ConverterComponent implements OnInit {
   }
 
   updateConversion(): void {
+    this.convertedAmount = null;
+    this.conversionMessage = '';
+
     if (!this.baseCurrencyId) {
       this.conversionMessage = 'Please, select the base currency';
       return;
@@ -108,12 +111,10 @@ export class ConverterComponent implements OnInit {
       return;
     }
 
-    console.log('Conversion: ', conversion);
     let conversionRate: number = 1;
-    this.conversionMessage = '';
     conversion.forEach((rate: Rate) => {
       conversionRate *= rate.rate;
-      this.conversionMessage += `${rate.base_currency.code}/${rate.quote_currency.code} ${rate.source.name} `;
+      this.conversionMessage += `${rate.base_currency.code}/${rate.quote_currency.code} ${rate.source.name} <small>${rate.rate}</small> `;
     });
 
     this.convertedAmount = this.roundToXDigits(this.amount * conversionRate, 5);
